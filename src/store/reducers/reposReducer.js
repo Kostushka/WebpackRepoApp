@@ -1,4 +1,4 @@
-export const SET_COUNT = 'SET_COUNT';
+export const SET_REPO = 'SET_REPO';
 
 const initialState = {
     items: [],
@@ -7,10 +7,10 @@ const initialState = {
 };
 const reposReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_COUNT:
+        case SET_REPO:
             return {
                 ...state,
-                count: action.payload,
+                items: action.payload.items,
             };
 
         default:

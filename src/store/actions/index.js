@@ -1,6 +1,6 @@
-import { SET_COUNT } from '../reducers/reposReducer';
+import { SET_REPO } from '../reducers/reposReducer';
 
-export const setCount = (count) => ({
-    type: SET_COUNT,
-    payload: count,
+export const setRepo = (repos) => ({
+    type: SET_REPO,
+    payload: repos,
 });

@@ -29,7 +29,7 @@ const RepoCard = (props) => {
                     >
                         Back
                     </button>
-                    <div className='card'>
+                    <div className='repo-card'>
                         <img
                             className='repo-img'
                             src={repo.owner.avatar_url}

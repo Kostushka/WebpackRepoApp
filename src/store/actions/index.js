@@ -1,4 +1,5 @@
 import {
+    IS_FETCH_ERROR,
     SET_CURRENT_PAGE,
     SET_IS_FETCHING,
     SET_REPO,
@@ -15,4 +16,8 @@ export const setFetching = (bool) => ({
 export const setCurrentPage = (page) => ({
     type: SET_CURRENT_PAGE,
     payload: page,
+});
+export const setFetchError = (bool) => ({
+    type: IS_FETCH_ERROR,
+    payload: bool,
 });

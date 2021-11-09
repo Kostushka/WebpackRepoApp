@@ -13,6 +13,7 @@ const RepoContainer = () => {
 
     const repos = useSelector((state) => state.repos.items);
     const isFetching = useSelector((state) => state.repos.isFetching);
+    const isFetchError = useSelector((state) => state.repos.isFetchError);
     const currentPage = useSelector((state) => state.repos.currentPage);
     const perPage = useSelector((state) => state.repos.perPage);
     const totalCount = useSelector((state) => state.repos.totalCount);
@@ -23,6 +24,7 @@ const RepoContainer = () => {
     useEffect(() => {
         dispatch(getRepo(inputValue, perPage, currentPage));
     }, [currentPage]);
+
     const changeHandler = () => {
         dispatch(setCurrentPage(1));
         dispatch(getRepo(inputValue, perPage, currentPage));
@@ -34,39 +36,52 @@ const RepoContainer = () => {
         }
     };
     return (
-        <div>
-            <div className='search'>
-                <input
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={onKeyDownHandler}
-                    type='text'
-                    placeholder='Input repo name'
-                    className='search-input'
-                />
-                <button onClick={changeHandler} className='search-button'>
-                    Search
-                </button>
-            </div>
-            {isFetching ? (
-                <div className='fetching'></div>
+        <>
+            {isFetchError ? (
+                <div className='alert alert-danger' role='alert'>
+                    Ошибка! Зайдите позже.
+                </div>
             ) : (
-                repos.map((repo) => <Repo key={repo.id} repo={repo} />)
+                <div>
+                    <div className='search'>
+                        <input
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                            onKeyDown={onKeyDownHandler}
+                            type='text'
+                            placeholder='Input repo name'
+                            className='search-input'
+                        />
+                        <button
+                            onClick={changeHandler}
+                            className='search-button'
+                        >
+                            Search
+                        </button>
+                    </div>
+                    {isFetching ? (
+                        <div className='fetching'></div>
+                    ) : (
+                        repos.map((repo) => <Repo key={repo.id} repo={repo} />)
+                    )}
+                    <div className='pages'>
+                        {pages.map((page, index) => (
+                            <span
+                                key={index}
+                                className={
+                                    currentPage === page
+                                        ? 'current-page'
+                                        : 'page'
+                                }
+                                onClick={() => dispatch(setCurrentPage(page))}
+                            >
+                                {page}
+                            </span>
+                        ))}
+                    </div>
+                </div>
             )}
-            <div className='pages'>
-                {pages.map((page, index) => (
-                    <span
-                        key={index}
-                        className={
-                            currentPage === page ? 'current-page' : 'page'
-                        }
-                        onClick={() => dispatch(setCurrentPage(page))}
-                    >
-                        {page}
-                    </span>
-                ))}
-            </div>
-        </div>
+        </>
     );
 };
 

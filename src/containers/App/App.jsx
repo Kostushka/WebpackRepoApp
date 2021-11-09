@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import RepoContainer from '../RepoContainer';
 import RepoCard from '../../components/RepoCard';
+import Error from '../../components/Error';
+
 import './App.less';
 
 const App = () => {
@@ -13,6 +15,7 @@ const App = () => {
                         path='/card/:username/:reponame'
                         component={RepoCard}
                     />
+                    <Route path='/error' component={Error} />
                     <Redirect to='/' />
                 </Switch>
             </div>
